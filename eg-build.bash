@@ -5,8 +5,6 @@ then
     echo "Hpapi directory \"$1\" not found" 
     exit 101
 fi
-sqlout="$(pwd)/eg-build.sql.tmp"
-echo "" > "$sqlout"
 cd "$1"
 wd="$(pwd)"
 
@@ -60,6 +58,7 @@ touch .hpapi-log/hpapi-last-output.log
 
 
 # Config
+mkdir -p .hpapi-build-sql
 mkdir -p .hpapi-config
 for egpath in $(find . -iname *.EXAMPLE)
 do
@@ -100,25 +99,29 @@ cd ..
 
 
 # SQL to build
-for sqlfile in $(find . -iname *.tables.sql)
+rm -r ./.hpapi-build-sql/*.sql
+for sqlfile in $(find . -iname '*.tables.sql')
 do
     echo "Collecting SQL from $sqlfile"
+    sqlout="./.hpapi-build-sql/$(echo "$sqlfile" | cut -d'.' -f1).sql"
     echo "-- ================"              >> "$sqlout"
     echo "-- TABLE SQL from $sqlfile"       >> "$sqlout"
     cat "$sqlfile"                          >> "$sqlout"
     echo ""                                 >> "$sqlout"
 done
-for sqlfile in $(find . -iname *.rows.sql)
+for sqlfile in $(find . -iname '*.rows.sql')
 do
     echo "Collecting SQL from $sqlfile"
+    sqlout="./.hpapi-build-sql/$(echo "$sqlfile" | cut -d'.' -f1).sql"
     echo "-- ================"              >> "$sqlout"
     echo "-- ROW SQL from $sqlfile"         >> "$sqlout"
     cat "$sqlfile"                          >> "$sqlout"
     echo ""                                 >> "$sqlout"
 done
-for sqlfile in $(find . -iname *.routines.sql)
+for sqlfile in $(find . -iname '*.routines.sql')
 do
     echo "Collecting SQL from $sqlfile"
+    sqlout="./.hpapi-build-sql/$(echo "$sqlfile" | cut -d'.' -f1).sql"
     echo "-- ================"              >> "$sqlout"
     echo "-- ROUTINE SQL from $sqlfile"     >> "$sqlout"
     cat "$sqlfile"                          >> "$sqlout"
@@ -139,7 +142,10 @@ echo ""                                                                     >> .
 echo "Config examples:"                                                     >> ./.hpapi-log/hpapi-build.log
 find . -type f -iname '*.EXAMPLE'                                           >> ./.hpapi-log/hpapi-build.log
 echo ""                                                                     >> ./.hpapi-log/hpapi-build.log
-echo "Required SQL:       $sqlout"                                          >> ./.hpapi-log/hpapi-build.log
+echo "Required SQL models:"                                                 >> ./.hpapi-log/hpapi-build.log
+find .hpapi-build-sql -type f -iname '*'                                    >> ./.hpapi-log/hpapi-build.log
+echo ""                                                                     >> ./.hpapi-log/hpapi-build.log
 cat ./.hpapi-log/hpapi-build.log
+
 
 
