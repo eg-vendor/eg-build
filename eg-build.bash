@@ -5,6 +5,8 @@ then
     echo "Hpapi directory \"$1\" not found" 
     exit 101
 fi
+sqlout="$(pwd)/eg-build.sql.tmp"
+echo "" > "$sqlout"
 cd "$1"
 wd="$(pwd)"
 
@@ -97,18 +99,47 @@ done
 cd ..
 
 
+# SQL to build
+for sqlfile in $(find . -iname *.tables.sql)
+do
+    echo "Collecting SQL from $sqlfile"
+    echo "-- ================"              >> "$sqlout"
+    echo "-- TABLE SQL from $sqlfile"       >> "$sqlout"
+    cat "$sqlfile"                          >> "$sqlout"
+    echo ""                                 >> "$sqlout"
+done
+for sqlfile in $(find . -iname *.rows.sql)
+do
+    echo "Collecting SQL from $sqlfile"
+    echo "-- ================"              >> "$sqlout"
+    echo "-- ROW SQL from $sqlfile"         >> "$sqlout"
+    cat "$sqlfile"                          >> "$sqlout"
+    echo ""                                 >> "$sqlout"
+done
+for sqlfile in $(find . -iname *.routines.sql)
+do
+    echo "Collecting SQL from $sqlfile"
+    echo "-- ================"              >> "$sqlout"
+    echo "-- ROUTINE SQL from $sqlfile"     >> "$sqlout"
+    cat "$sqlfile"                          >> "$sqlout"
+    echo ""                                 >> "$sqlout"
+done
+
+
 # Information
-echo ""                                                             >  ./.hpapi-log/hpapi-build.log
-echo "Location:           $1"                                       >> ./.hpapi-log/hpapi-build.log
-echo "Build log:          $(pwd)/.hpapi-log/hpapi-build.log"        >> ./.hpapi-log/hpapi-build.log
-echo "Last response log:  $(pwd)/.hpapi-log/hpapi-last-output.log"  >> ./.hpapi-log/hpapi-build.log
-echo "Document root:      $(pwd)/whitelamp-uk/hpapi-server"         >> ./.hpapi-log/hpapi-build.log
-echo ""                                                             >> ./.hpapi-log/hpapi-build.log
-echo "Configuration:"                                               >> ./.hpapi-log/hpapi-build.log
-find .hpapi-config -type f -iname '*'                               >> ./.hpapi-log/hpapi-build.log
-echo ""                                                             >> ./.hpapi-log/hpapi-build.log
-echo "Config examples:"                                             >> ./.hpapi-log/hpapi-build.log
-find . -type f -iname '*.EXAMPLE'                                   >> ./.hpapi-log/hpapi-build.log
-echo ""                                                             >> ./.hpapi-log/hpapi-build.log
+echo ""                                                                     >  ./.hpapi-log/hpapi-build.log
+echo "Location:                 $1"                                         >> ./.hpapi-log/hpapi-build.log
+echo "Build log (this info):    $(pwd)/.hpapi-log/hpapi-build.log"          >> ./.hpapi-log/hpapi-build.log
+echo "Last response log:        $(pwd)/.hpapi-log/hpapi-last-output.log"    >> ./.hpapi-log/hpapi-build.log
+echo "Document root:            $(pwd)/whitelamp-uk/hpapi-server"           >> ./.hpapi-log/hpapi-build.log
+echo ""                                                                     >> ./.hpapi-log/hpapi-build.log
+echo "Configuration:"                                                       >> ./.hpapi-log/hpapi-build.log
+find .hpapi-config -type f -iname '*'                                       >> ./.hpapi-log/hpapi-build.log
+echo ""                                                                     >> ./.hpapi-log/hpapi-build.log
+echo "Config examples:"                                                     >> ./.hpapi-log/hpapi-build.log
+find . -type f -iname '*.EXAMPLE'                                           >> ./.hpapi-log/hpapi-build.log
+echo ""                                                                     >> ./.hpapi-log/hpapi-build.log
+echo "Required SQL:       $sqlout"                                          >> ./.hpapi-log/hpapi-build.log
 cat ./.hpapi-log/hpapi-build.log
+
 
