@@ -1,5 +1,8 @@
 # eg-build
-Example vendor build script (including whitelamp-uk packages)
+
+Example vendor build package which builds whitelamp-uk and eg-vendor packages in a single directory.
+
+This is a copy/tweak example for your own vendor build package.
 
 Run these commands:
 
@@ -7,13 +10,19 @@ mkdir ~/hpapi
 git clone https://github.com/eg-vendor/eg-build.git
 bash eg-build/eg-build.bash ~/hpapi
 
-Note the HTTP document root and implement in web server configuration
-Create a database and import into it the SQL contained in eg-build.sql.tmp
+Read the notes.
 
-Configure everything in ~/hpapi/.hpapi-config/
+Create database(s) and import SQL models in ./hpapi/.hpapi-build-sql/.
 
-Test with this command:
-php ~/hpapi/whitelamp-uk/hpapi-client-php-cli/hpapi.php -f ~/hpapi/eg-vendor/hpapi-json-examples/hello.json
- 
-Browse the example javascript client: ~/hpapi/eg-vendor/eg-client/index.html
+Configure ~/hpapi/.hpapi-config/ especially:
+  * hpapi-models.cfg.json
+  * whitelamp-uk/hpapi-hpapi.cfg.php
 
+Configure web server for directory ~/hpapi/hpapi-server/ by:
+ * Giving server directory permissions
+ * Either symbolically link directory from document root as subdirectory eg:
+     ln -s ~/hpapi/hpapi-server /var/www/html/api
+ * Or create a virtual host for with directory as document root
+
+Test using this command but with the appropriate URL for your server configuration:
+php ~/hpapi/whitelamp-uk/hpapi-client-php-cli/hpapi.php -f eg-build/test.json https://localhost/api/
