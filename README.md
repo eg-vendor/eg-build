@@ -6,8 +6,9 @@ This is a copy/tweak example for your own vendor build package.
 
 Run these commands:
 
-mkdir ~/hpapi
 git clone https://github.com/eg-vendor/eg-build.git
+cat eg-build/README.md
+mkdir ~/hpapi
 bash eg-build/eg-build.bash ~/hpapi
 
 Read the notes.
