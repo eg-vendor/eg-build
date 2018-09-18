@@ -17,6 +17,7 @@ Create database(s) and import SQL models in ./hpapi/.hpapi-build-sql/.
 Configure ~/hpapi/.hpapi-config/ especially:
   * hpapi-models.cfg.json
   * whitelamp-uk/hpapi-hpapi.cfg.php
+[HTTP without SSL requires that constant HPAPI_SSL_ENFORCE be set to false]
 
 Configure web server for directory ~/hpapi/hpapi-server/ by:
  * Giving server directory permissions
