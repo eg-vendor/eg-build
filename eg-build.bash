@@ -100,31 +100,34 @@ cd ..
 
 # SQL to build
 rm -r ./.hpapi-build-sql/*.sql
-for sqlfile in $(find . -iname '*.tables.sql')
+for sqlpath in $(find . -iname '*.tables.sql')
 do
-    echo "Collecting SQL from $sqlfile"
+    echo "Collecting SQL from $sqlpath"
+    sqlfile="$(basename "$sqlpath")"
     sqlout="./.hpapi-build-sql/$(echo "$sqlfile" | cut -d'.' -f1).sql"
     echo "-- ================"              >> "$sqlout"
-    echo "-- TABLE SQL from $sqlfile"       >> "$sqlout"
-    cat "$sqlfile"                          >> "$sqlout"
+    echo "-- TABLE SQL from $sqlpath"       >> "$sqlout"
+    cat "$sqlpath"                          >> "$sqlout"
     echo ""                                 >> "$sqlout"
 done
-for sqlfile in $(find . -iname '*.rows.sql')
+for sqlpath in $(find . -iname '*.rows.sql')
 do
-    echo "Collecting SQL from $sqlfile"
+    echo "Collecting SQL from $sqlpath"
+    sqlfile="$(basename "$sqlpath")"
     sqlout="./.hpapi-build-sql/$(echo "$sqlfile" | cut -d'.' -f1).sql"
     echo "-- ================"              >> "$sqlout"
-    echo "-- ROW SQL from $sqlfile"         >> "$sqlout"
-    cat "$sqlfile"                          >> "$sqlout"
+    echo "-- ROW SQL from $sqlpath"         >> "$sqlout"
+    cat "$sqlpath"                          >> "$sqlout"
     echo ""                                 >> "$sqlout"
 done
-for sqlfile in $(find . -iname '*.routines.sql')
+for sqlpath in $(find . -iname '*.routines.sql')
 do
-    echo "Collecting SQL from $sqlfile"
+    echo "Collecting SQL from $sqlpath"
+    sqlfile="$(basename "$sqlpath")"
     sqlout="./.hpapi-build-sql/$(echo "$sqlfile" | cut -d'.' -f1).sql"
     echo "-- ================"              >> "$sqlout"
-    echo "-- ROUTINE SQL from $sqlfile"     >> "$sqlout"
-    cat "$sqlfile"                          >> "$sqlout"
+    echo "-- ROUTINE SQL from $sqlpath"     >> "$sqlout"
+    cat "$sqlpath"                          >> "$sqlout"
     echo ""                                 >> "$sqlout"
 done
 
@@ -144,6 +147,10 @@ find . -type f -iname '*.EXAMPLE'                                           >> .
 echo ""                                                                     >> ./.hpapi-log/hpapi-build.log
 echo "Required SQL models:"                                                 >> ./.hpapi-log/hpapi-build.log
 find .hpapi-build-sql -type f -iname '*'                                    >> ./.hpapi-log/hpapi-build.log
+echo "[HpapiModel typically (but not necessarily) has its own database]"    >> ./.hpapi-log/hpapi-build.log
+echo ""                                                                     >> ./.hpapi-log/hpapi-build.log
+echo "View this information later with:"                                    >> ./.hpapi-log/hpapi-build.log
+echo "cat $(pwd)/.hpapi-log/hpapi-build.log"                                >> ./.hpapi-log/hpapi-build.log
 echo ""                                                                     >> ./.hpapi-log/hpapi-build.log
 cat ./.hpapi-log/hpapi-build.log
 
