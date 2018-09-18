@@ -25,4 +25,5 @@ Configure web server for directory ~/hpapi/hpapi-server/ by:
  * Or create a virtual host for with directory as document root
 
 Test using this command but with the appropriate URL for your server configuration:
-php ~/hpapi/whitelamp-uk/hpapi-client-php-cli/hpapi.php -f eg-build/test.json https://localhost/api/
+php ~/hpapi/whitelamp-uk/hpapi-client-php-cli/hpapi.php eg-build/test.json https://localhost/api/
+The returned JSON should contain the property response->returnValue containing a datetime-stamped UUID.
