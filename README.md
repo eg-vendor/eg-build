@@ -15,6 +15,10 @@ Read the notes.
 
 Create database(s) and import SQL models in ./hpapi/.hpapi-build-sql/.
 
+Add test users for JSON test files with this stored procedure (in database containing hpapi model):
+
+CALL `hpapiInsertTestUsers`();
+
 Configure ~/hpapi/.hpapi-config/ especially:
   * hpapi-models.cfg.json
   * whitelamp-uk/hpapi-hpapi.cfg.php
