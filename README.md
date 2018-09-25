@@ -35,3 +35,15 @@ php ~/hpapi/whitelamp-uk/hpapi-client-php-cli/hpapi.php eg-build/test.json https
 Or with interactive password (factory set to "password"):
 php ~/hpapi/whitelamp-uk/hpapi-client-php-cli/hpapi.php eg-build/test-interactive.json https://localhost/api/
 The returned JSON should contain the property response->returnValue containing a datetime-stamped UUID.
+
+
+Note that an incorrect password still POSTs but only methods allowed for user group 'anon' will give a response->returnValue without an authentication error (notice the property authStatus changes if password is empty/wrong). An unrecognised API key is rejected entirely.
+
+The critical tables for configuring web access control and validation are:
+  * hpapi_call [server methods <--> SQL routines]
+  * hpapi_membership [users <--> user groups]
+  * hpapi_methodarg [server method arguments <--> validation patterns]
+  * hpapi_run [server methods <--> user groups]
+  * hpapi_sprarg [SQL routine arguments <--> validation patterns]
+  * hpapi_user [key,email <--> password hash]
+
