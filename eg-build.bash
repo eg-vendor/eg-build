@@ -73,13 +73,11 @@ do
     cd ../..
     vendor="$(basename "$(pwd)")"
     cd "$wd"
-    echo "From $(pwd):"
     mkdir -p .hpapi-config/$vendor
     if [ -f .hpapi-config/$vendor/$newfile ]
     then
         continue
     fi
-    echo cp $egpath .hpapi-config/$vendor/$newfile
     cp $egpath .hpapi-config/$vendor/$newfile
 done
 cd .hpapi-config
