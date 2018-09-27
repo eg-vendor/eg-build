@@ -54,7 +54,6 @@ touch .hpapi-log/hpapi-last-output.log
 
 
 # Config
-mkdir -p .hpapi-build-sql
 mkdir -p .hpapi-config
 for egpath in $(find . -iname *.EXAMPLE)
 do
@@ -93,6 +92,7 @@ cd ..
 
 
 # SQL to build
+mkdir -p .hpapi-build-sql
 rm -r ./.hpapi-build-sql/*.sql
 for sqlpath in $(find . -iname '*.tables.sql')
 do

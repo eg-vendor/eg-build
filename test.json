@@ -1,6 +1,6 @@
 {
     "txnid": "egv-get-user-detail",
-    "key": "20180725104327::0e0f4ce8-8fee-11e8-902b-001f16148bc1",
+    "key": "0e0f4ce8-8fee-11e8-902b-001f16148bc1",
     "email": "sysadmin@no.where",
     "password": "password",
     "method": {
