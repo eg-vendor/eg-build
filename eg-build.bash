@@ -45,10 +45,6 @@ if [ ! -d ./hpapi-utility ]
 then
     git clone https://github.com/whitelamp-uk/hpapi-utility.git
 fi
-if [ ! -d ./hpapi-dba ]
-then
-    git clone https://github.com/whitelamp-uk/hpapi-dba.git
-fi
 cd ..
 
 
