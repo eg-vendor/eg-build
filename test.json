@@ -9,6 +9,7 @@
         "class": "\\Egv\\EgServer",
         "method": "getUserDetail",
         "arguments": [
+            1
         ]
     }
 }
