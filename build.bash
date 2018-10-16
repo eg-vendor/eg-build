@@ -9,41 +9,44 @@ cd "$1"
 wd="$(pwd)"
 
 
-# Example vendor packages
-mkdir -p eg-vendor
-cd eg-vendor
-if [ ! -d ./eg-server ]
-then
-    git clone https://github.com/eg-vendor/eg-server.git
-fi
-if [ ! -d ./eg-client ]
-then
-    git clone https://github.com/eg-vendor/eg-client.git
-fi
-cd ..
-
 # Whitelamp packages
 mkdir -p whitelamp-uk
 cd whitelamp-uk
-if [ ! -d ./hpapi-server ]
+for package in hpapi-client-js hpapi-client-php-cli hpapi-hpapi hpapi-server hpapi-utility
+do
+    if [ -d ./$package ]
+    then
+        echo "Pulling whitelamp-uk/$package.git"
+        cd ./$package
+        git pull
+        cd ..
+    else
+        echo "Cloning https://github.com/whitelamp-uk/$package.git"
+        git clone https://github.com/whitelamp-uk/$package.git
+    fi
+done
+cd ..
+
+
+# Example vendor packages
+mkdir -p eg-vendor
+cd eg-vendor
+for package in eg-client eg-server
+do
+    if [ -d ./$package ]
+    then
+        echo "Pulling eg-vendor/$package.git"
+        cd ./$package
+        git pull
+        cd ..
+    else
+        echo "Cloning https://github.com/eg-vendor/$package.git"
+        git clone https://github.com/eg-vendor/$package.git
+    fi
+done
+if [ ! -d ./eg-client ]
 then
-    git clone https://github.com/whitelamp-uk/hpapi-server.git
-fi
-if [ ! -d ./hpapi-hpapi ]
-then
-    git clone https://github.com/whitelamp-uk/hpapi-hpapi.git
-fi
-if [ ! -d ./hpapi-client-js ]
-then
-    git clone https://github.com/whitelamp-uk/hpapi-client-js.git
-fi
-if [ ! -d ./hpapi-client-php-cli ]
-then
-    git clone https://github.com/whitelamp-uk/hpapi-client-php-cli.git
-fi
-if [ ! -d ./hpapi-utility ]
-then
-    git clone https://github.com/whitelamp-uk/hpapi-utility.git
+    git clone https://github.com/eg-vendor/eg-client.git
 fi
 cd ..
 
