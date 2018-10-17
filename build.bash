@@ -76,10 +76,10 @@ do
     then
         continue
     fi
-    cp $egpath .hpapi-config/$vendor/$newfile
+    cp -p $egpath .hpapi-config/$vendor/$newfile
 done
 cd .hpapi-config
-for file in choices.cfg.html hpapi-models.cfg.json hpapi-pdo.dfn.json hpapi-server.hdr.php humans.txt
+for file in choices.cfg.html hpapi-models.cfg.json hpapi-pdo.dfn.json hpapi-privileges.array.php hpapi-server.hdr.php humans.txt
 do
     if [  -f  ./$file ]
     then
